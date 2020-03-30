@@ -9,7 +9,6 @@
     import Stock from './Stock.vue'
 
   export default {
-    name: "Stocks",
     components: {
       appStock: Stock,
     },
