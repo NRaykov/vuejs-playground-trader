@@ -13,10 +13,15 @@
                 <div class="pull-left">
                     <input type="number"
                            class="form-control"
-                           placeholder="Quantity">
+                           placeholder="Quantity"
+                           v-model="quantity">
                 </div>
+                <!-- TODO Make Validation for none integer values -->
                 <div class="pull-right">
-                    <button class="btn btn-success">Buy</button>
+                    <button class="btn btn-success"
+                            @click="buyStock"
+                            :disabled="quantity <= 0"
+                            >Buy</button>
                 </div>
             </div>
         </div>
@@ -28,10 +33,26 @@
     name: "Stock",
     props: {
       stock: {
-        type: Array,
+        type: Object,
         default: ''
       }
     },
+    data() {
+      return {
+        quantity: 0
+      }
+    },
+    methods: {
+      buyStock() {
+        const order = {
+          stockId: this.stock.id,
+          stockPrice: this.stock.price,
+          quantity: this.quantity
+        };
+        console.log(order);
+        this.quantity = 0;
+      }
+    }
   }
 </script>
 
