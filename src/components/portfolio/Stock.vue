@@ -14,14 +14,15 @@
                     <input type="number"
                            class="form-control"
                            placeholder="Quantity"
-                           v-model="quantity">
+                           v-model="quantity"
+                            :class="{ danger: insufficientQuantity }">
                 </div>
                 <!-- TODO Make Validation for none integer values -->
                 <div class="pull-right">
                     <button class="btn btn-success"
                             @click="sellStock"
-                            :disabled="quantity <= 0"
-                    >Sell</button>
+                            :disabled="insufficientQuantity || quantity <= 0"
+                    >{{ insufficientQuantity ? 'Not Enough' : 'Sell' }}</button>
                 </div>
             </div>
         </div>
@@ -42,6 +43,11 @@
     data() {
       return {
         quantity: 0
+      }
+    },
+    computed: {
+      insufficientQuantity() {
+        return this.quantity > this.stock.quantity;
       }
     },
     methods: {
@@ -66,5 +72,7 @@
 </script>
 
 <style scoped>
-
+ .danger {
+     border: 1px solid red;
+ }
 </style>
