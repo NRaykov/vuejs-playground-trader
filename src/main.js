@@ -17,6 +17,7 @@ import { routes } from './routes.js';
 import store from './store/store.js'
 
 const router = new VueRouter({
+  base: '/',
   mode: 'history',
   routes
 });
